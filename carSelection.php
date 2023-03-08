@@ -7,11 +7,11 @@
     <title>Redbook Car Selection</title>
 <script type="text/javascript">
     let carObject = {
-        "Subaru": ["","","",""],
-        "Honda": ["","","",""],
-        "Chevrolet": ["", "", "", ""],
-        "Ford": ["","","",""],
-        "Toyota": ["","","",""]
+        "Subaru": ["Forester","Outback","Crosstrek","Impreza"],
+        "Honda": ["Odyssey","Accord","Civic","Ridgeline"],
+        "Chevrolet": ["Impala", "Silverado", "Malibu", "Equinox"],
+        "Ford": ["F150","Focus","Explorer","Mustang"],
+        "Toyota": ["Camry","Corolla","RAV4","Tacoma"]
     };
     window.onload = function() {
         let makeSelect = document.getElementById("mk");
@@ -67,14 +67,14 @@
         <option value = "" selected = "selected">Please select make first </option>
     </select>
     <br><br>
-    <input type = "submit" class = "myButton">
+    <input type = "submit" name = "addCar" class = "myButton">
 </form>
 </body>
-
 </html>
-
-
-
-
-
 <?php
+    if (isset($_POST["addCar"])) {
+        $year = $_POST["yr"];
+        $make = $_POST["mk"];
+        $model = $_POST["model"];
+    }
+?>
