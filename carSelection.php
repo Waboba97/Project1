@@ -7,11 +7,11 @@
     <title>Redbook Car Selection</title>
 <script type="text/javascript">
     let carObject = {
-        "Subaru": ["Forester","","",""],
-        "Honda": ["","","",""],
-        "Chevrolet": ["", "", "", ""],
-        "Ford": ["","","",""],
-        "Toyota": ["","","",""]
+        "Subaru": ["Forester","Outback","Crosstrek","Impreza"],
+        "Honda": ["Odyssey","Accord","Civic","Ridgeline"],
+        "Chevrolet": ["Impala", "Silverado", "Malibu", "Equinox"],
+        "Ford": ["F150","Focus","Explorer","Mustang"],
+        "Toyota": ["Camry","Corolla","RAV4","Tacoma"]
     };
     window.onload = function() {
         let makeSelect = document.getElementById("mk");
