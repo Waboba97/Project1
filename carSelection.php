@@ -72,9 +72,36 @@
 </body>
 </html>
 <?php
+    $inputError = false;
+    $year = "";
+    $make = "";
+    $model = "";
     if (isset($_POST["addCar"])) {
         $year = $_POST["yr"];
         $make = $_POST["mk"];
         $model = $_POST["model"];
+
+        if (empty($year)) {
+            $inputError = true;
+            echo "You must select a year";
+        }
+        if (empty($make)) {
+            $inputError = true;
+            echo "You must select a make";
+        }
+        if (empty($model)) {
+            $inputError = true;
+            echo "You must select a model";
+        }
+
+        if (!$inputError) {
+            $query = "INSERT INTO car_owners "
+            try {
+                $result = $pdo -> query($query);
+            }
+            catch (PDOException $e) {
+
+            }
+        }
     }
 ?>
