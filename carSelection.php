@@ -67,14 +67,14 @@
         <option value = "" selected = "selected">Please select make first </option>
     </select>
     <br><br>
-    <input type = "submit" class = "myButton">
+    <input type = "submit" name = "addCar" class = "myButton">
 </form>
 </body>
-
 </html>
-
-
-
-
-
 <?php
+    if (isset($_POST["addCar"])) {
+        $year = $_POST["yr"];
+        $make = $_POST["mk"];
+        $model = $_POST["model"];
+    }
+?>
