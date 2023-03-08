@@ -7,7 +7,7 @@
     <title>Redbook Car Selection</title>
 <script type="text/javascript">
     let carObject = {
-        "Subaru": ["","","",""],
+        "Subaru": ["Forester","","",""],
         "Honda": ["","","",""],
         "Chevrolet": ["", "", "", ""],
         "Ford": ["","","",""],
