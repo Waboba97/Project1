@@ -94,13 +94,27 @@
             echo "You must select a model";
         }
 
-        if (!$inputError) {
-            $query = "INSERT INTO car_owners "
+        if (isset($_SESSION['user_id'])) {
+            require_once 'login.php';
             try {
-                $result = $pdo -> query($query);
+                $pdo = new PDO($dsn, $dbUser, $dbPassword);
+            }
+            catch (PDOException $e){
+                throw new PDOException($e->getMessage(), (int)$e->getCode());
+            }
+            $userID = $_SESSION['user_id'];
+        }
+        if (!$inputError) {
+            $make = $_POST['mk'];
+            $model = $_POST['model'];
+            try {
+                $retrieveQuery = "SELECT carID FROM cars WHERE make = '$make' AND model = '$model';";
+                $carID = $pdo -> query($retrieveQuery);
+                $insertQuery = "INSERT INTO users_cars (CID, UID) VALUES('$carID', '$userID');";
+                $result = $pdo -> query($insertQuery);
             }
             catch (PDOException $e) {
-
+                die("An error has occurred");
             }
         }
     }
