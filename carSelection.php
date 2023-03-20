@@ -5,32 +5,34 @@
 <head>
     <meta charset = "utf-8">
     <title>Redbook Car Selection</title>
-<script type="text/javascript">
-    let carObject = {
-        "Subaru": ["Forester","Outback","Crosstrek","Impreza"],
-        "Honda": ["Odyssey","Accord","Civic","Ridgeline"],
-        "Chevrolet": ["Impala", "Silverado", "Malibu", "Equinox"],
-        "Ford": ["F150","Focus","Explorer","Mustang"],
-        "Toyota": ["Camry","Corolla","RAV4","Tacoma"]
-    };
-    window.onload = function() {
-        let makeSelect = document.getElementById("mk");
-        let modelSelect = document.getElementById("model");
-        for (let x in carObject) {
-            makeSelect.options[makeSelect.options.length] = new Option (x,x);
-        }
-        makeSelect.onchange = function() {
-            modelSelect.length = 1;
-            let y = carObject[makeSelect.value];
-            for (let i = 0; i < Object.keys(y).length; i++) {
-                modelSelect.options[modelSelect.options.length] = new Option (y[i],y[i]);
-            }
+    <script type="text/javascript">
+        let carObject = {
+            "Subaru": ["Forester","Outback","Crosstrek","Impreza"],
+            "Honda": ["Odyssey","Accord","Civic","Ridgeline"],
+            "Chevrolet": ["Impala", "Silverado", "Malibu", "Equinox"],
+            "Ford": ["F150","Focus","Explorer","Mustang"],
+            "Toyota": ["Camry","Corolla","RAV4","Tacoma"]
         };
-    };
-</script>
-<style>
-    body{text-align: center;}
-</style>
+        window.onload = function() {
+            let makeSelect = document.getElementById("mk");
+            let modelSelect = document.getElementById("model");
+            for (let x in carObject) {
+                makeSelect.options[makeSelect.options.length] = new Option (x,x);
+            }
+            makeSelect.onchange = function() {
+                modelSelect.length = 1;
+                let y = carObject[makeSelect.value];
+                for (let i = 0; i < Object.keys(y).length; i++) {
+                    modelSelect.options[modelSelect.options.length] = new Option (y[i],y[i]);
+                }
+            };
+        };
+    </script>
+    <style>
+        body{text-align: center;}
+    </style>
+    <link rel = "stylesheet" href = "layout.css">
+
 </head>
 <body>
 <h1>Please select your vehicle</h1>
@@ -72,50 +74,68 @@
 </body>
 </html>
 <?php
-    $inputError = false;
-    $year = "";
-    $make = "";
-    $model = "";
-    if (isset($_POST["addCar"])) {
-        $year = $_POST["yr"];
-        $make = $_POST["mk"];
-        $model = $_POST["model"];
+include ("header.php");
+require_once 'mysql_connect.php';
+include ("footer.php");
+$inputError = false;
+$year = "";
+$make = "";
+$model = "";
+if (isset($_POST["addCar"])) {
+    $year = $_POST["yr"];
+    $make = $_POST["mk"];
+    $model = $_POST["model"];
 
-        if (empty($year)) {
-            $inputError = true;
-            echo "You must select a year";
-        }
-        if (empty($make)) {
-            $inputError = true;
-            echo "You must select a make";
-        }
-        if (empty($model)) {
-            $inputError = true;
-            echo "You must select a model";
-        }
+    //checking if a valid choice was made
+    if (empty($year)) {
+        $inputError = true;
+        echo "You must select a year";
+    }
+    if (empty($make)) {
+        $inputError = true;
+        echo "You must select a make";
+    }
+    if (empty($model)) {
+        $inputError = true;
+        echo "You must select a model";
+    }
 
-        if (isset($_SESSION['user_id'])) {
-            require_once 'login.php';
-            try {
-                $pdo = new PDO($dsn, $dbUser, $dbPassword);
-            }
-            catch (PDOException $e){
-                throw new PDOException($e->getMessage(), (int)$e->getCode());
-            }
-            $userID = $_SESSION['user_id'];
+    if (isset($_SESSION['user_id'])) {
+        require_once 'mysql_connect.php';
+        try {
+            $pdo = new PDO($dsn, $dbUser, $dbPassword);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
+        $userID = $_SESSION['user_id'];
+
         if (!$inputError) {
-            $make = $_POST['mk'];
-            $model = $_POST['model'];
             try {
-                $retrieveQuery = "SELECT carID FROM cars WHERE make = '$make' AND model = '$model';";
-                $carID = $pdo -> query($retrieveQuery);
+                //retrieve carID
+                $retrieveCIDQuery = "SELECT carID FROM cars WHERE make = '$make' AND model = '$model';";
+                $result = $pdo->query($retrieveCIDQuery);
+                $row = $result->fetch();
+                $carID = $row['carID'];
+                //retrieve user name
+                $userName = sanitise($pdo, $_SERVER['PHP_AUTH_USER']);
+                $names = explode(" ", $userName);
+                $firstName = $names[0];
+                $lastName = $names[1];
+                //retrieve user ID
+                $retrieveUIDQuery = "SELECT userID from car_owners WHERE firstName = '$firstName' AND lastName = '$lastName'";
+                $result = $pdo->query($retrieveUIDQuery);
+                $row = $result->fetch();
+                $userID = $row['userID'];
+                //Add to the linking table
                 $insertQuery = "INSERT INTO users_cars (CID, UID) VALUES('$carID', '$userID');";
-                $result = $pdo -> query($insertQuery);
-            }
-            catch (PDOException $e) {
+                $result = $pdo->query($insertQuery);
+            } catch (PDOException $e) {
                 die("An error has occurred");
             }
+            echo "The car was successfully added to the database.";
         }
+        $result->close();
+        $pdo->close();
     }
+}
 ?>
