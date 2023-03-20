@@ -1,38 +1,38 @@
 CREATE TABLE cars (
-	carID int NOT NULL AUTO_INCREMENT,
-	make varchar (25),
+    carID int NOT NULL AUTO_INCREMENT,
+    make varchar (25),
     model varchar (25),
-    baseYear int,
+    year int,
     price int,
     PRIMARY KEY (carID)
 );
 
 -- Toyota
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Toyota", "Camry", 2022, 25000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Toyota", "Corolla", 2022, 20000); 
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Toyota", "RAV4", 2022, 26000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Toyota", "Tacoma", 2022, 27000);
+INSERT INTO cars (make, model, price) VALUES ("Toyota", "Camry", 25000);
+INSERT INTO cars (make, model, price) VALUES ("Toyota", "Corolla", 20000);
+INSERT INTO cars (make, model, price) VALUES ("Toyota", "RAV4", 26000);
+INSERT INTO cars (make, model, price) VALUES ("Toyota", "Tacoma", 27000);
 
 -- Ford
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Ford", "F150", 2022, 31000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Ford", "Focus", 2022, 30000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Ford", "Explorer", 2022, 36000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Ford", "Mustang", 2022, 27000);
+INSERT INTO cars (make, model, price) VALUES ("Ford", "F150", 31000);
+INSERT INTO cars (make, model, price) VALUES ("Ford", "Focus", 30000);
+INSERT INTO cars (make, model, price) VALUES ("Ford", "Explorer", 36000);
+INSERT INTO cars (make, model, price) VALUES ("Ford", "Mustang", 27000);
 
 -- Chevy
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Chevy", "Impala", 2022, 23000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Chevy", "Silverado", 2022, 35000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Chevy", "Malibu", 2022, 23000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Chevy", "Equinox", 2022, 26000);
+INSERT INTO cars (make, model, price) VALUES ("Chevy", "Impala", 23000);
+INSERT INTO cars (make, model, price) VALUES ("Chevy", "Silverado", 35000);
+INSERT INTO cars (make, model, price) VALUES ("Chevy", "Malibu", 23000);
+INSERT INTO cars (make, model, price) VALUES ("Chevy", "Equinox", 26000);
 
 -- Honda
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Honda", "Odyssey", 2022, 33000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Honda", "Accord", 2022, 26000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Honda", "Civic", 2022, 22000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Honda", "Ridgeline", 2022, 38000);
+INSERT INTO cars (make, model, price) VALUES ("Honda", "Odyssey", 33000);
+INSERT INTO cars (make, model, price) VALUES ("Honda", "Accord", 26000);
+INSERT INTO cars (make, model, price) VALUES ("Honda", "Civic", 22000);
+INSERT INTO cars (make, model, price) VALUES ("Honda", "Ridgeline", 38000);
 
 -- Subaru
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Subaru", "Outback", 2022, 28000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Subaru", "Crosstrek", 2022, 23000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Subaru", "Forester", 2022, 26000);
-INSERT INTO cars (make, model, baseYear, price) VALUES ("Subaru", "Impreza", 2022, 19000); 
+INSERT INTO cars (make, model, price) VALUES ("Subaru", "Outback", 28000);
+INSERT INTO cars (make, model, price) VALUES ("Subaru", "Crosstrek", 23000);
+INSERT INTO cars (make, model, price) VALUES ("Subaru", "Forester", 26000);
+INSERT INTO cars (make, model, price) VALUES ("Subaru", "Impreza", 19000);
