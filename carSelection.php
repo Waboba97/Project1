@@ -69,7 +69,9 @@
         <option value = "" selected = "selected">Please select make first </option>
     </select>
     <br><br>
-    <input type = "submit" name = "addCar" class = "myButton">
+    <input type = "submit" name = "addCar">
+    <button>Output cars</button>
+    <button type = "submit" formaction="carOutput.php">Show Cars</button>
 </form>
 </body>
 </html>
