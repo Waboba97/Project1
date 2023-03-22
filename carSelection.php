@@ -129,7 +129,7 @@ if (isset($_POST["addCar"])) {
                 $row = $result->fetch();
                 $userID = $row['userID'];
                 //Add to the linking table
-                $insertQuery = "INSERT INTO users_cars (CID, UID) VALUES('$carID', '$userID');";
+                $insertQuery = "INSERT INTO users_cars (CID, UID, year) VALUES('$carID', '$userID', '$year');";
                 $result = $pdo->query($insertQuery);
             } catch (PDOException $e) {
                 die("An error has occurred");
