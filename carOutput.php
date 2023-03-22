@@ -27,11 +27,13 @@
         while ($row = $result->fetch(PDO::FETCH_NUM)) {
             //not sure where to go from here
             //need make, model, price pulled where the CID matches
+            //put each column into an array??
         }
     }catch (PDOException $e) {
         echo "<h2>There was an error retrieving data from the database.</h2>";
         die();
     }
-  //need to adjust price based on year and condition(optional) and then output each of the cars
+    //adjust the price in the array based on the year
+    //output each car with the different values for each quality
 ?>
 </body>
