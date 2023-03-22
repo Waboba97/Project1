@@ -26,8 +26,7 @@
         $result = $pdo -> query($CIDQuery);
         while ($row = $result->fetch(PDO::FETCH_NUM)) {
             //not sure where to go from here
-            //need make, model, price pulled where the CID matches
-            //put each column into an array??
+            //need make, model, price pulled from cars table where the CID matches
         }
     }catch (PDOException $e) {
         echo "<h2>There was an error retrieving data from the database.</h2>";
