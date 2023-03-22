@@ -20,14 +20,14 @@
         throw new PDOException($e->getMessage(), (int)$e->getCode());
     }
     $userID = $_SESSION['user_id'];
-    $usersCarsArray = array("CID" =>array('year', 'make', 'model', 'price'));//Does this work? can't have the same car I think though
+    $usersCarsArray = array(array());//Does this work?
     $CIDQuery = "SELECT CID, year FROM users_cars WHERE UID = '$userID';";
     try {
         $result = $pdo -> query($CIDQuery);
         while ($row = $result->fetch(PDO::FETCH_NUM)) {
             //not sure where to go from here
             foreach ($row as $value) {
-                $usersCarsArray[$row][0] = $value;//assign the year to that CID??
+                $usersCarsArray[[$row[0]][$row[1]] = $value;//assign the year to that CID??
             }
         }
         //need make, model, price pulled from cars table where the CID matches
