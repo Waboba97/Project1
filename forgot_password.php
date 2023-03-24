@@ -7,31 +7,37 @@
 //the user. For simplicity, assume that the system always resets the user's 
 //password to the default password, which can be something such as "pass"
 
-require_once ('config.php'); 
 $page_title = 'Forgot Your Password';
-include ('header.html');
-require_once "mysql_connect.php";
+include ('header.php');
+require_once 'mysql_connect.php';
 
-$email = $_POST['email'];
-$getEmail = "SELECT email FROM car_ownersTable WHERE email == $email ";
+$displayForm = True;
 
 
-if ( !( $result = $pdo->query($getEmail) ) ) 
-{
-   print( "<p>That email is not in the system!</p>" );
-   die( "</body></html>" );
-} else {
-    $sql = "UPDATE car_ownersTable SET email='Pass' WHERE email='$email";
-    $stmt = $conn->prepare($sql);
 
-    // execute the query
-    $stmt->execute();
-    echo "Your password for $email has been successfully updated to 'Pass'.";
+
+if(isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $getEmail = "SELECT email FROM car_ownersTable WHERE email = $email";
+
+
+    if ( !( $result = $pdo->query($getEmail) ) ) {
+        echo "That email is not in the system!";
+        $displayForm = True;
+    } else {
+        $update = "UPDATE car_ownersTable SET password='Pass' WHERE email=$email";
+        $stmt = $pdo->prepare($update);
+
+        // execute the query
+        $stmt->execute();
+        echo "Your password for $email has been successfully updated to 'Pass'.";
+        $displayForm = False;
+        ?>
+         <a href="returningUser.html" title="Login">Login</a><br />
+         <?php
+    }
 }
-
-
-
-
+if ($displayForm){ 
 ?>
 
 <h1>Reset Your Password</h1>
@@ -48,5 +54,6 @@ if ( !( $result = $pdo->query($getEmail) ) )
 </form>
 
 <?php
-include ('footer.html');
+}
+include ('footer.php');
 ?>
