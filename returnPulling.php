@@ -2,7 +2,7 @@
 
 //authenticate.php: authenticates users who are stored in the database
 require_once 'mysql_connect.php';
-
+include "header.php";
 //Connect to MySQL Server: create a new object named $pdo
 try {
     $pdo = new PDO($dsn, $dbUser, $dbPassword);
@@ -10,42 +10,38 @@ try {
 catch (PDOException $e){
     die("Fatal Error - Could not connect to the database" . "</body></html>" );
 }
+session_start();
+if (isset($_POST['submit'])) {
+    $username = $_POST['email'];
+    $password = $_POST['password'];
 
-if (isset($_SERVER['PHP_AUTH_USER']) &&
-    isset($_SERVER['PHP_AUTH_PW'])) {
 
-    $un_temp = sanitise($pdo, $_SERVER['PHP_AUTH_USER']);
-    $pw_temp = sanitise($pdo, $_SERVER['PHP_AUTH_PW']);
-    $query   = "SELECT * FROM users WHERE username=$un_temp";
-    $result  = $pdo->query($query);
 
-    if (!$result->rowCount())
-        die("User not found");
 
-    $row = $result->fetch();
-    $fn  = $row['email'];
-    $sn  = $row['firstName'];
-    $un  = $row['lastName'];
-    $pw  = $row['password'];
-    $uid = $row['userID'];
+    $_SESSION['email'] = $_POST['email'];
 
-    //Password verify(): verifies that a password matches a hash. $row[3] is the stored hashed value.
-    if (password_verify(str_replace("'", "", $pw_temp), $pw))
-        //htmlspecialchars() Convert special characters to HTML entities
-        //It is used to encode user input on a website so that users cannot insert harmful HTML codes into a site
-        echo htmlspecialchars("$fn $sn : Hi $fn, you are now logged in as '$un'");
-    else die("Invalid username/password combination");
+    $query = "SELECT from car_owners WHERE email ='$username' AND password = '$password';";
+
+    $result = $pdo -> query($query);
+    echo "2";
+    $row = $result -> fetch(PDO::FETCH_NUM);
+
+    if (password_verify($password, $row[1])) {
+        $_SESSION['email'] = $row[0];
+        $_SESSION['password'] = $row[1];
+        echo htmlspecialchars("Hi {$row[0]}, you are successfully logged in.");
+        session_start();
+    }else echo "There was a problem logging you into the database.";
+
+    if(!isset($_SESSION)) {
+        session_start();
+        echo "1";
+    }
 }
-else
-{
-    header('WWW-Authenticate: Basic realm="Restricted Area"');
-    header('HTTP/1.0 401 Unauthorized');
-    die ("Please enter your username and password");
-}
-
 function sanitise($pdo, $str)
 {
     $str = htmlentities($str);
     return $pdo->quote($str);
 }
+    include "footer.php";
 ?>
