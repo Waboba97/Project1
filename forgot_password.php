@@ -18,14 +18,14 @@ $displayForm = True;
 
 if(isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $getEmail = "SELECT email FROM car_ownersTable WHERE email = $email";
+    $getEmail = "SELECT email FROM car_owners WHERE email = $email";
 
 
     if ( !( $result = $pdo->query($getEmail) ) ) {
         echo "That email is not in the system!";
         $displayForm = True;
     } else {
-        $update = "UPDATE car_ownersTable SET password='Pass' WHERE email=$email";
+        $update = "UPDATE car_owners SET password='Pass' WHERE email=$email";
         $stmt = $pdo->prepare($update);
 
         // execute the query
