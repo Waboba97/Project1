@@ -25,7 +25,8 @@ if(isset($_POST['submit'])) {
         echo "That email is not in the system!";
         $displayForm = True;
     } else {
-        $update = "UPDATE car_owners SET password='Pass' WHERE email=$email";
+        $hash = password_hash("Pass", PASSWORD_DEFAULT);
+        $update = "UPDATE car_owners SET password=$hash WHERE email=$email";
         $stmt = $pdo->prepare($update);
 
         // execute the query
