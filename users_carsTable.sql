@@ -7,5 +7,5 @@ CREATE TABLE users_cars (
     -- Year ID
     PRIMARY KEY (CID, UID),
     FOREIGN KEY (CID) REFERENCES cars(carID),
-    FOREIGN KEY (UID) REFERENCES car_owners(userID),
+    FOREIGN KEY (UID) REFERENCES car_owners(userID)
 );
