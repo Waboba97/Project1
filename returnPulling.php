@@ -27,7 +27,6 @@ if (isset($_SERVER['PHP_AUTH_USER']) &&
     $sn  = $row['firstName'];
     $un  = $row['lastName'];
     $pw  = $row['password'];
-    $dt  = $row['registration_date'];
     $uid = $row['userID'];
 
     //Password verify(): verifies that a password matches a hash. $row[3] is the stored hashed value.
