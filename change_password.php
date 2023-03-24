@@ -34,7 +34,7 @@
             <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
         </div>
 
-        <div class="mySubmit"><input type="submit" name="submit" value="Reset My Password" /></div>
+        <div class="mySubmit"><input type="submit" name="submit" value="Change My Password" /></div>
     </fieldset>
 </form>
 
