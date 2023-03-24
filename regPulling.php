@@ -1,6 +1,6 @@
 <?php
 //pull values from Registration.html
-include ('header.php');
+
 require_once 'mysql_connect.php';
 
 try {
@@ -48,5 +48,5 @@ if(isset($_POST['query'])) {
         }
     }
 }
-include ('footer.php');
+
 ?>
