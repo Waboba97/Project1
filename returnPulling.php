@@ -15,20 +15,22 @@ if (isset($_POST['submit'])) {
     $username = $_POST['email'];
     $password = $_POST['password'];
 
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $query = "SELECT from car_owners WHERE email ='$username' AND password = '$hash';";
 
-
-
-    $_SESSION['email'] = $_POST['email'];
-
-    $query = "SELECT from car_owners WHERE email ='$username' AND password = '$password';";
-
-    $result = $pdo -> query($query);
+   try {
+       $result = $pdo->query($query);
+   }
+   catch (PDOException $e) {
+       echo "There was an issue with the database.";
+   }
     echo "2";
     $row = $result -> fetch(PDO::FETCH_NUM);
 
     if (password_verify($password, $row[1])) {
         $_SESSION['email'] = $row[0];
         $_SESSION['password'] = $row[1];
+        echo "3";
         echo htmlspecialchars("Hi {$row[0]}, you are successfully logged in.");
         session_start();
     }else echo "There was a problem logging you into the database.";
