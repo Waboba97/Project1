@@ -36,7 +36,7 @@
 </head>
 <body>
 <h1>Please select your vehicle</h1>
-<form>
+<form method="post" action="carSelection.php">
     Year: <select name = "yr" id = "yr">
         <option value = "" selected = "selected">Select Year</option>
         <option value = "2022">2022</option>
@@ -69,8 +69,7 @@
         <option value = "" selected = "selected">Please select make first </option>
     </select>
     <br><br>
-    <input type = "submit" name = "addCar">
-    <button>Output cars</button>
+    <input type="submit" name ="addCar" value="Submit Car">
     <button type = "submit" formaction="carOutput.php">Show Cars</button>
 </form>
 </body>
@@ -102,32 +101,29 @@ if (isset($_POST["addCar"])) {
         echo "You must select a model";
     }
 
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['email'])) {
         require_once 'mysql_connect.php';
         try {
             $pdo = new PDO($dsn, $dbUser, $dbPassword);
         } catch (PDOException $e) {
             throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
-        $userID = $_SESSION['user_id'];
+        $email = $_SESSION['email'];
 
         if (!$inputError) {
             try {
                 //retrieve carID
                 $retrieveCIDQuery = "SELECT carID FROM cars WHERE make = '$make' AND model = '$model';";
                 $result = $pdo->query($retrieveCIDQuery);
-                $row = $result->fetch();
-                $carID = $row['carID'];
-                //retrieve user name
-                $userName = sanitise($pdo, $_SERVER['PHP_AUTH_USER']);
-                $names = explode(" ", $userName);
-                $firstName = $names[0];
-                $lastName = $names[1];
+                $row = $result->fetch(PDO::FETCH_NUM);
+                $carID = $row[0];
+                echo $carID;
                 //retrieve user ID
-                $retrieveUIDQuery = "SELECT userID from car_owners WHERE firstName = '$firstName' AND lastName = '$lastName'";
+                $retrieveUIDQuery = "SELECT userID from car_owners WHERE email = '$email';";
                 $result = $pdo->query($retrieveUIDQuery);
-                $row = $result->fetch();
-                $userID = $row['userID'];
+                $row = $result->fetch(PDO::FETCH_NUM);
+                $userID = $row[0];
+                echo $userID;
                 //Add to the linking table
                 $insertQuery = "INSERT INTO users_cars (CID, UID, year) VALUES('$carID', '$userID', '$year');";
                 $result = $pdo->query($insertQuery);
