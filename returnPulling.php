@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
         session_start();
         $_SESSION['email'] = $username;
         $_SESSION['password'] = $pw;
-        echo htmlspecialchars("Hi $username, you are successfully logged in.<br>");
+        echo ("Hi $username, you are successfully logged in.<br>");
         echo "<a href = 'carSelection.php'>Register cars</a>";
     }else
         echo "There was a problem logging you into the database.";
