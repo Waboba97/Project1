@@ -13,10 +13,9 @@ catch (PDOException $e){
 session_start();
 if (isset($_POST['submit'])) {
     $username = $_POST['email'];
-    $password = $_POST['password'];
+    $password = htmlspecialchars($_POST['password']);
 
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-    $query = "SELECT from car_owners WHERE email ='$username' AND password = '$hash';";
+    $query = "SELECT password from car_owners WHERE email ='$username';";
 
    try {
        $result = $pdo->query($query);
@@ -24,16 +23,18 @@ if (isset($_POST['submit'])) {
    catch (PDOException $e) {
        echo "There was an issue with the database.";
    }
-    echo "2";
+
     $row = $result -> fetch(PDO::FETCH_NUM);
 
-    if (password_verify($password, $row[1])) {
-        $_SESSION['email'] = $row[0];
-        $_SESSION['password'] = $row[1];
-        echo "3";
-        echo htmlspecialchars("Hi {$row[0]}, you are successfully logged in.");
+   $pw = $row[0];
+    if (password_verify($password, $pw)) {
         session_start();
-    }else echo "There was a problem logging you into the database.";
+        $_SESSION['email'] = $username;
+        $_SESSION['password'] = $pw;
+        echo htmlspecialchars("Hi $username, you are successfully logged in.<br>");
+        echo "<a href = 'carSelection.php'>Register cars</a>";
+    }else
+        echo "There was a problem logging you into the database.";
 
     if(!isset($_SESSION)) {
         session_start();
