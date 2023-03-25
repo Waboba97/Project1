@@ -6,7 +6,7 @@
 <?php 
 
 // If the user is logged-in, show logout in the menu and change password links
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['email'])) {
 
 	echo '<a href="logout.php" title="Logout">Logout</a><br />
           <a href="change_password.php" title="Change Your Password">Change Password</a><br />';
