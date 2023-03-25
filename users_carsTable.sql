@@ -4,7 +4,11 @@ CREATE TABLE users_cars (
     UID int NOT NULL,
     -- User ID
     year int NOT NULL,
-    -- Year ID
+    -- Year of vehicle
+    mileage int NOT NULL,
+	-- mileage of the vehicle
+	quality int NOT NULL,
+	-- quality of the vehicle (decreasing quality)
     PRIMARY KEY (CID, UID),
     FOREIGN KEY (CID) REFERENCES cars(carID),
     FOREIGN KEY (UID) REFERENCES car_owners(userID)
