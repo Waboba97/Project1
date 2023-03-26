@@ -14,7 +14,6 @@ if (isset($_SESSION['email'])) {
 
 	echo '<a href="Registration.html" title="Register for the Site">Register</a><br />
          <a href="ReturningUser.html" title="Login">Login</a><br />
-         <a href="forgot_password.php" title="Password Retrieval">Retrieve Password</a><br />';
 }
 ?>
 
