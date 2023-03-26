@@ -27,11 +27,6 @@ if(isset($_POST['query'])) {
             $password = password_hash($password, PASSWORD_DEFAULT);
             $query = "INSERT INTO car_owners (first_name, last_name, email, password) VALUES ('$fName', '$lName', '$email', '$password');";
             $result = $pdo->query($query);
-            if ($result) {
-                echo "Registration successful.";
-            } else {
-                echo "There was an issue with the database.";
-            }
         } else {
             echo "Passwords do not match.";
             $passwordError = true;
