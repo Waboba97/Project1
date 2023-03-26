@@ -31,9 +31,6 @@ if ($_POST['submit']) {
             echo "There was an issue with the database.";
         }
     }
-    $getEmail = "SELECT email FROM car_owners WHERE email = '$email';";
-    //$getPassword = 'SELECT password FROM car_owners';
-
 }
 if ($displayForm){
     ?>
