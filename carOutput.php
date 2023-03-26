@@ -6,6 +6,7 @@
     <meta charset = "utf-8">
     <title>Redbook Car Output</title>
     <link rel = "stylesheet" href = "layout.css">
+
 </head>
 <body>
 <?php
@@ -13,31 +14,101 @@
     require_once "mysql_connect.php";
     include "footer.php";
 
+
+
     try {
         $pdo = new PDO($dsn, $dbUser, $dbPassword);
     }
     catch (PDOException $e){
-        throw new PDOException($e->getMessage(), (int)$e->getCode());
+        echo "There was an issue with the database.";
+
     }
-    $userID = $_SESSION['user_id'];
-    $usersCarsArray = array(array('cid' =>0,'year'=>'', 'make'=>'', 'model'=>'', 'price'=>0));//Does this work? can't have the same car I think though
-    $CIDQuery = "SELECT CID, year FROM users_cars WHERE UID = '$userID';";
-    try {
-        $result = $pdo -> query($CIDQuery);
-        while ($row = $result->fetch(PDO::FETCH_NUM)) {
-            //not sure where to go from here
-            foreach ($row as $value) {
-                $usersCarsArray[$row][0] = $value;//Adding the cid??
-                $usersCarsArray[$row][1] = $value;//Adding the year??
-            }
+    //if the user is logged in, display the cars they have registered
+    if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+        $retrieveUIDQuery = "SELECT userID from car_owners WHERE email = '$email';";
+        $result = $pdo->query($retrieveUIDQuery);
+        $row = $result->fetch(PDO::FETCH_NUM);
+        $userID = $row[0];
+        $retrieveCarInfoQuery = "SELECT * FROM users_cars WHERE UID = '$userID';";
+        $result = $pdo->query($retrieveCarInfoQuery);
+        $row = $result->fetch(PDO::FETCH_NUM);
+        $carID = $row[0];
+        $year = $row[2];
+        $mileage = $row[3];
+        switch ($row[4]) {
+            case 1:
+                $quality = "Excellent";
+                break;
+            case 2:
+                $quality = "Very Good";
+                break;
+            case 3:
+                $quality = "Good";
+                break;
+            case 4:
+                $quality = "Fair";
+                break;
         }
-        //need make, model, price pulled from cars table where the CID matches
-        //put each column into an array??
-    }catch (PDOException $e) {
-        echo "<h2>There was an error retrieving data from the database.</h2>";
-        die();
+        $retrieveCarsQuery = "SELECT * FROM cars WHERE carID = '$carID';";
+        $result = $pdo->query($retrieveCarsQuery);
+        $row = $result->fetch(PDO::FETCH_NUM);
+        $make = $row[1];
+        $model = $row[2];
+        $price = $row[4];
+
+        //no car information
+        if ($carID == null) {
+            echo "<p>You have not registered any cars.</p>";
+        }
+        else {
+            //display table
+            echo "<table>";
+            echo "<tr><th>Make</th><th>Model</th><th>Year</th><th>Quality</th><th>Mileage</th></tr>";
+            echo "<tr><td>$make</td><td>$model</td><td>$year</td><td>$quality</td><td>$mileage</td></tr>";
+            echo "</table>";
+            echo "<br>";
+            //adjust price based on quality and mileage
+            switch ($quality) {
+                case "Excellent":
+                    $price = $price * 1.08;
+                    break;
+                case "Very Good":
+                    $price = $price * 1.03;
+                    break;
+                case "Good":
+                    $price = $price * 0.98;
+                    break;
+                case "Fair":
+                    $price = $price * 0.93;
+                    break;
+            }
+            if ($mileage <= 10000) {
+                $price = $price * 0.99;
+            } else if ($mileage <= 40000 && $mileage > 10000) {
+                $price = $price * 0.95;
+            } else if ($mileage <= 70000 && mileage > 40000) {
+                $price = price * 0.9;
+            } else
+                $price = $price * 0.85;
+
+            $dealerPrice = round($price * 1.15, 0);
+            $privatePrice = round($price * 1.1, 0);
+            $tradeIn = round($price * 0.8, 0);
+
+
+
+
+            echo "<p>Estimated Private Owner Price: $$price</p>";
+            echo "<p>Estimated Dealer Price: $$dealerPrice</p>";
+            echo "<p>Certified Pre-Owned Price: $$privatePrice</p>";
+            echo "<p>Estimated Trade-In Value: $$tradeIn</p>";
+        }
+
+
     }
-    //adjust the price in the array based on the year
-    //output each car with the different values for each quality
+    else {
+        echo "You must be logged in to view your cars.";
+    }
 ?>
 </body>

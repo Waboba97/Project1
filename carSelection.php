@@ -68,7 +68,7 @@
     Model: <select name = "model" id = "model">
         <option value = "" selected = "selected">Please select make first </option>
     </select>
-    Mileage: <input type = "number" name = "mileage" size = "10" required>
+    Mileage: <input type = "number" name = "mileage" size = "10" value="0" required>
     Quality: <select name = "quality">
         <option value = ""></option>
         <option value = "1">Excellent</option>
@@ -77,8 +77,20 @@
         <option value = "4">Fair</option>
     </select>
     <br><br>
-    <input type="submit" name ="addCar" value="Submit Car">
-    <button type = "submit" formaction="carOutput.php">Show Cars</button>
+    Additional Options: <br>
+    <label> <input type="checkbox" name="addOn[]" value = "gps"> Integrated GPS </label>
+    <label> <input type="checkbox" name="addOn[]" value = "heated"> Heated Seats </label>
+    <label> <input type="checkbox" name="addOn[]" value = "backup"> Backup Camera </label>
+    <label> <input type="checkbox" name="addOn[]" value = "bluetooth"> Bluetooth </label>
+    <label> <input type="checkbox" name="addOn[]" value = "sound"> Premium Sound System </label>
+
+    <br><br>
+    <input type="submit" name ="addCar" id = "addCar" value="Submit Car">
+    <button type = "submit" formaction="carOutput.php">View Estimation</button>
+    <button type = "submit" formaction="carHistory.php">View History</button>
+
+
+
 </form>
 </body>
 </html>
@@ -136,6 +148,8 @@ if (isset($_POST["addCar"])) {
                 $result = $pdo->query($retrieveCIDQuery);
                 $row = $result->fetch(PDO::FETCH_NUM);
                 $carID = $row[0];
+                $make = $row[1];
+                $model = $row[2];
                 //retrieve user ID
                 $retrieveUIDQuery = "SELECT userID from car_owners WHERE email = '$email';";
                 $result = $pdo->query($retrieveUIDQuery);
@@ -144,13 +158,15 @@ if (isset($_POST["addCar"])) {
                 //Add to the linking table
                 $insertQuery = "INSERT INTO users_cars (CID, UID, year, mileage, quality) VALUES('$carID', '$userID', '$year', '$mileage', '$quality');";
                 $result = $pdo->query($insertQuery);
+                $insertHistory = "INSERT INTO car_history (user, car, year, mileage, quality) VALUES('$userID', '$make', '$year', '$mileage', '$quality');";
             } catch (PDOException $e) {
-                die("An error has occurred");
+                echo("An error has occurred");
             }
             echo "The car was successfully added to the database.";
         }
         $result->close();
         $pdo->close();
+
     }
 }
 ?>

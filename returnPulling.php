@@ -31,8 +31,15 @@ if (isset($_POST['submit'])) {
         session_start();
         $_SESSION['email'] = $username;
         $_SESSION['password'] = $pw;
-        echo ("Hi $username, you are successfully logged in.<br>");
+        //fetch name from database
+        $query = "SELECT firstName from car_owners WHERE email ='$username';";
+        $result = $pdo->query($query);
+        $row = $result -> fetch(PDO::FETCH_NUM);
+        $name = $row[0];
+        echo ("Hi $name, you are successfully logged in.<br>");
         echo "<a href = 'carSelection.php'>Register cars</a>";
+        echo "<br>";
+        echo "<a href = 'carOutput.php'>View cars</a>";
     }else
         echo "There was a problem logging you into the database.";
 
