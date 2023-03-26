@@ -20,12 +20,13 @@
         }
 
         try {
-            $pdo->exec($getEmail);
-            $getPassword = "UPDATE car_owners SET password = $pw WHERE email='$email';";
-            $stmt = $pdo->prepare($getPassword);
+            $result = $pdo->exec($getEmail);
+            $hash = password_hash($pw, PASSWORD_DEFAULT);
+            $getPassword = "UPDATE car_owners SET password = $hash WHERE email = '$email';";
+            $stmt = $pdo->exec($getPassword);
 
-            // execute the query
-            $stmt->execute();
+
+
             echo "Your password for $email has been successfully updated.";
         } catch (PDOException $e) {
             print("<p>That email is not in the system!</p>");
