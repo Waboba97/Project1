@@ -22,15 +22,11 @@ if(isset($_POST['query'])) {
     if (strlen($password) < 6) {
         echo "Password must be at least 6 characters";
         $passwordError = true;
-    } else {
-        if ($password == $passwordConfirm) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO car_owners (first_name, last_name, email, password) VALUES ('$fName', '$lName', '$email', '$password');";
-            $result = $pdo->query($query);
-        } else {
-            echo "Passwords do not match.";
-            $passwordError = true;
-        }
+    }
+
+    if ($password != $passwordConfirm) {
+        echo "Passwords do not match";
+        $passwordError = true;
     }
 
     if (empty($email))

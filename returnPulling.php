@@ -17,8 +17,9 @@ if (isset($_POST['submit'])) {
     $password = htmlspecialchars($_POST['password']);
 
 
+
     $query = "SELECT password from car_owners WHERE email ='$username';";
-    
+
 
    try {
        $result = $pdo->query($query);
@@ -30,7 +31,7 @@ if (isset($_POST['submit'])) {
     $row = $result -> fetch(PDO::FETCH_NUM);
     $pw = $row[0];
 
-
+    
     if (password_verify($password, $pw)) {
         $_SESSION['email'] = $username;
         $_SESSION['password'] = $pw;
@@ -44,7 +45,6 @@ if (isset($_POST['submit'])) {
         echo "<br>";
         echo "<a href = 'carOutput.php'>View cars</a>";
     }else
-        $test = password_verify($password, $pw);
         echo "Password Incorrect";
 
     if(!isset($_SESSION)) {
