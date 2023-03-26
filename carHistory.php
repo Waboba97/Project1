@@ -57,7 +57,6 @@
             echo "<h2>$year $make $model</h2>";
             echo "<p>Mileage: $mileage</p>";
             echo "<p>Quality: $quality</p>";
-            echo "<p>Car ID: $carID</p>";
             echo "</div>";
         }
 

@@ -26,6 +26,7 @@
     //if the user is logged in, display the cars they have registered
     if (isset($_SESSION['email'])) {
         $email = $_SESSION['email'];
+        $addOns = $_SESSION['addOns'];
         $retrieveUIDQuery = "SELECT userID from car_owners WHERE email = '$email';";
         $result = $pdo->query($retrieveUIDQuery);
         $row = $result->fetch(PDO::FETCH_NUM);
@@ -92,9 +93,9 @@
             } else
                 $price = $price * 0.85;
 
-            $dealerPrice = round($price * 1.15, 0);
-            $privatePrice = round($price * 1.1, 0);
-            $tradeIn = round($price * 0.8, 0);
+            $dealerPrice = round($price * 1.15 + ($addOns * 75), 0);
+            $privatePrice = round($price * 1.1 + ($addOns * 75), 0);
+            $tradeIn = round($price * 0.8 + ($addOns * 75), 0);
 
 
 
@@ -103,6 +104,7 @@
             echo "<p>Estimated Dealer Price: $$dealerPrice</p>";
             echo "<p>Certified Pre-Owned Price: $$privatePrice</p>";
             echo "<p>Estimated Trade-In Value: $$tradeIn</p>";
+            echo "<p>Additional Add-Ons: $addOns</p>";
         }
 
 

@@ -131,6 +131,14 @@ if (isset($_POST["addCar"])) {
         $inputError = true;
         echo "You must select a model";
     }
+    $addOnCount = 0;
+    if (isset($_POST['addOn'])) {
+        foreach ($_POST['addOn'] as $addOn) {
+            if($addOn != "") {
+                $addOnCount++;
+            }
+        }
+    }
 
     if (isset($_SESSION['email'])) {
         require_once 'mysql_connect.php';
@@ -140,6 +148,7 @@ if (isset($_POST["addCar"])) {
             throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
         $email = $_SESSION['email'];
+        $_SESSION['addOns'] = $addOnCount;
 
         if (!$inputError) {
             try {
@@ -158,6 +167,8 @@ if (isset($_POST["addCar"])) {
                 $result = $pdo->query($insertQuery);
                 $insertHistory = "INSERT INTO car_history (UID, make, model, year, mileage, quality) VALUES('$userID', '$make', '$model', '$year', '$mileage', '$quality');";
                 $result = $pdo->query($insertHistory);
+
+
             } catch (PDOException $e) {
                 echo("An error has occurred");
             }
