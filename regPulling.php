@@ -1,6 +1,7 @@
+
+
 <?php
 //pull values from Registration.html
-
 require_once 'mysql_connect.php';
 
 try {
@@ -50,3 +51,4 @@ if(isset($_POST['query'])) {
 }
 
 ?>
+

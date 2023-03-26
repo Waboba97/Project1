@@ -11,8 +11,8 @@
 <body>
 <?php
     include "header.php";
-    require_once "mysql_connect.php";
     include "footer.php";
+    require_once "mysql_connect.php";
 
 
 

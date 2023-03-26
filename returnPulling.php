@@ -3,6 +3,7 @@
 //authenticate.php: authenticates users who are stored in the database
 require_once 'mysql_connect.php';
 include "header.php";
+include "footer.php";
 //Connect to MySQL Server: create a new object named $pdo
 try {
     $pdo = new PDO($dsn, $dbUser, $dbPassword);
