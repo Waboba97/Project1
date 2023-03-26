@@ -42,7 +42,11 @@
             <label class="labelCol" for="email">Email Address</label>
             <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
         </div>
-        
+        <div class = "myRow">
+            <label class = "labelCol" for ="password">Password</label>
+            <input type = "password" name ="password">
+        </div>
+
         <div class="mySubmit"><input type="submit" name="submit" value="Change My Password" /></div>
     </fieldset>
 </form>
