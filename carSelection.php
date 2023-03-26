@@ -148,8 +148,6 @@ if (isset($_POST["addCar"])) {
                 $result = $pdo->query($retrieveCIDQuery);
                 $row = $result->fetch(PDO::FETCH_NUM);
                 $carID = $row[0];
-                $make = $row[1];
-                $model = $row[2];
                 //retrieve user ID
                 $retrieveUIDQuery = "SELECT userID from car_owners WHERE email = '$email';";
                 $result = $pdo->query($retrieveUIDQuery);
@@ -158,7 +156,8 @@ if (isset($_POST["addCar"])) {
                 //Add to the linking table
                 $insertQuery = "INSERT INTO users_cars (CID, UID, year, mileage, quality) VALUES('$carID', '$userID', '$year', '$mileage', '$quality');";
                 $result = $pdo->query($insertQuery);
-                $insertHistory = "INSERT INTO car_history (user, car, year, mileage, quality) VALUES('$userID', '$make', '$year', '$mileage', '$quality');";
+                $insertHistory = "INSERT INTO car_history (UID, make, model, year, mileage, quality) VALUES('$userID', '$make', '$model', '$year', '$mileage', '$quality');";
+                $result = $pdo->query($insertHistory);
             } catch (PDOException $e) {
                 echo("An error has occurred");
             }
