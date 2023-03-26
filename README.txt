@@ -1,4 +1,4 @@
-Group ____ README
+Group Brian, Connor, Braxton, Kyle README
 
 PROJECT INSTRUCTIONS AND GOAL
 
