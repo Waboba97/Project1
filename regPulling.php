@@ -46,6 +46,15 @@ if(isset($_POST['query'])) {
             echo $emailError;
         }
 
+    if (empty($fName))
+        echo "Must Enter your first name!";
+    else if (!preg_match("/^[A-z]+$/", $fName))
+        echo "Invalid first name!";
+
+    if (empty($lName))
+        echo "Must Enter your last name!";
+    else if (!preg_match("/^[A-z]+$/", $lName))
+        echo "Invalid last name!";
 
     //if there are no errors, insert the data into the database
     if ($passwordError == null && $emailError == null) {

@@ -62,7 +62,7 @@
 
 
         //button to add a new car
-        echo "<form action = 'carSelection.php' method = 'post'>";
+        echo "<form action = 'delete.php' method = 'post'>";
         echo "<input type = 'submit' value = 'Add a New Car'>";
         echo "</form>";
 

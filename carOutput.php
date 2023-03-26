@@ -109,7 +109,7 @@
 
 
         //button that takes user to car selection page
-        echo "<a href='delete.php'><button class='carSelection' id = 'clear'>Clear and Appraise New Car</button></a>";
+        echo "<a href='delete.php'><button class='carSelection' id = 'clear'>Appraise New Car</button></a>";
         echo "<a href='carHistory.php'><button class='carHistory'>View History</button></a>";
 
 
