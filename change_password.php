@@ -6,24 +6,32 @@
 
     $displayForm = TRUE;
 
-    $email = $_POST['email'];
-    $pw = $_POST['password'];
-    $getEmail = "SELECT email FROM car_owners";
-    //$getPassword = 'SELECT password FROM car_owners';
+    if ($_POST['submit']) {
+        $email = $_POST['email'];
+        $pw = $_POST['password'];
+        $getEmail = "SELECT email FROM car_owners WHERE email = '$email';";
+        //$getPassword = 'SELECT password FROM car_owners';
 
-    if ( !( $result = $pdo->query($getEmail) ) )
-    {
-        print( "<p>That email is not in the system!</p>" );
-        die();
-    } else {
-        $getPassword = "UPDATE car_owners SET password=$pw WHERE email='$email'";
-        $stmt = $conn->prepare($sql);
 
-        // execute the query
-        $stmt->execute();
-        echo "Your password for $email has been successfully updated to 'Pass'.";
+        try {
+            $pdo = new PDO($dsn, $dbUser, $dbPassword);
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
+        }
+
+        try {
+            $pdo->exec($getEmail);
+            $getPassword = "UPDATE car_owners SET password = $pw WHERE email='$email';";
+            $stmt = $pdo->prepare($getPassword);
+
+            // execute the query
+            $stmt->execute();
+            echo "Your password for $email has been successfully updated.";
+        } catch (PDOException $e) {
+            print("<p>That email is not in the system!</p>");
+            die();
+        }
     }
-
     if ($displayForm){
 ?>
 <h1>Change Your Password</h1>
@@ -34,7 +42,7 @@
             <label class="labelCol" for="email">Email Address</label>
             <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" />
         </div>
-
+        
         <div class="mySubmit"><input type="submit" name="submit" value="Change My Password" /></div>
     </fieldset>
 </form>
