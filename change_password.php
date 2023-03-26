@@ -6,28 +6,40 @@
 
     $displayForm = TRUE;
 
+
+try {
+    $pdo = new PDO($dsn, $dbUser, $dbPassword);
+} catch (PDOException $e) {
+    throw new PDOException($e->getMessage(), (int)$e->getCode());
+}
+
     if ($_POST['submit']) {
         $email = $_POST['email'];
         $pw = $_POST['password'];
+        //make sure password is more than 6 characters
+        if (strlen($pw) < 6) {
+            echo "Password must be at least 6 characters";
+
+        } else {
+            $pw = password_hash($pw, PASSWORD_DEFAULT);
+            $query = "UPDATE car_owners SET password = '$pw' WHERE email = '$email';";
+            $result = $pdo->query($query);
+            if ($result) {
+                echo "Password successfully changed.";
+                $displayForm = FALSE;
+            } else {
+                echo "There was an issue with the database.";
+            }
+        }
         $getEmail = "SELECT email FROM car_owners WHERE email = '$email';";
         //$getPassword = 'SELECT password FROM car_owners';
 
 
         try {
-            $pdo = new PDO($dsn, $dbUser, $dbPassword);
-        } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
-        }
-
-        try {
-            $result = $pdo->exec($getEmail);
-            $hash = password_hash($pw, PASSWORD_DEFAULT);
-            $getPassword = "UPDATE car_owners SET password = $hash WHERE email = '$email';";
-            $stmt = $pdo->exec($getPassword);
+            //check if email exists
+            $result = $pdo->query($getEmail);
 
 
-
-            echo "Your password for $email has been successfully updated.";
         } catch (PDOException $e) {
             print("<p>That email is not in the system!</p>");
             die();
@@ -49,6 +61,7 @@
         </div>
 
         <div class="mySubmit"><input type="submit" name="submit" value="Change My Password" /></div>
+        <button type = "submit" formaction="ReturningUser.html">Login</button>
     </fieldset>
 </form>
 
