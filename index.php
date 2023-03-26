@@ -32,11 +32,6 @@ if (isset($_SESSION['email'])) {
 <?php
 }else {
     echo "<h1>Login or Register to Appraise your car";
-    ?>
-    <a href="Registration.html">
-        <button class="carSelection">Vehicle Appraisal</button>
-    </a>
-    <?php
 }
 
 // Include the HTML footer file:

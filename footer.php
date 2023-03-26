@@ -13,7 +13,7 @@ if (isset($_SESSION['email'])) {
 } else { //  Not logged in.
 
 	echo '<a href="Registration.html" title="Register for the Site">Register</a><br />
-         <a href="ReturningUser.html" title="Login">Login</a><br />
+         <a href="ReturningUser.html" title="Login">Login</a><br />';
 }
 ?>
 
