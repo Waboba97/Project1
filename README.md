@@ -43,5 +43,5 @@ needed HTML for the forms, using PHP for the rest of it.
 
 BUGS AND TESTING
 
-* I don't think we have any bugs but feel free to add them here if you find one
-* I didn't think there was anything specific that had to be done to run it either than have the dblogin file
+* The name does allow entries other than letters, but there were larger concerns to correct, so if there was more time we could have added a regex to ensure only valid names are allowed.
+* For testing, we tried several different possible ways that invalid entries could be made. For example entering different passwords, negative mileage, too short of passwords etc...
