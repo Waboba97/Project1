@@ -1,4 +1,6 @@
-
+<style>
+    <?php include 'layout.css'; ?>
+</style>
 
 <?php
 //pull values from Registration.html
