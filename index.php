@@ -1,3 +1,7 @@
+<style>
+    <?php include 'layout.css'; ?>
+</style>
+
 <?php
 // This is the main page for the site.
 
