@@ -114,7 +114,7 @@ if (isset($_POST["addCar"])) {
     //checking if a valid choice was made
     if (empty($quality)) {
         $inputError = true;
-        echo "You must select a quality";
+        echo "You must select a quality<br>";
     }
     if (empty($mileage)) {
         $inputError = true;
@@ -125,15 +125,15 @@ if (isset($_POST["addCar"])) {
     }
     if (empty($year)) {
         $inputError = true;
-        echo "You must select a year";
+        echo "You must select a year<br>";
     }
     if (empty($make)) {
         $inputError = true;
-        echo "You must select a make";
+        echo "You must select a make<br>";
     }
     if (empty($model)) {
         $inputError = true;
-        echo "You must select a model";
+        echo "You must select a model<br>";
     }
     $addOnCount = 0;
     if (isset($_POST['addOn'])) {
