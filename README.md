@@ -29,7 +29,7 @@ changing, and registration pulling (or login). In terms of challenges, we strugg
 registration.html file working properly, we had issues with the returningUser.html file, leading us to further issues. We have those fixed now, but that was the area 
 that gave us the most issue for the coding side.
 
-* What requirements we did for this
+* We believe we met all the requirements that were in the guidelines, we added a history section, an appraisal with all the proper calculations, dropdown boxes and checkboxes for different types of cars, and the required 20 different cars. We have all tables including an extra one for the history. If given more time there would be an option to select previous cars and display their prices as well. 
 
 HTML & CSS FILES
 
