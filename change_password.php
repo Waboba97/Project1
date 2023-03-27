@@ -36,7 +36,7 @@ if ($_POST['submit']) {
 if ($displayForm){
     ?>
     <h1>Change Your Password</h1>
-    <p>Enter your password below and it will be changed.</p>
+    <p>Enter your new password below and it will be changed.</p>
     <form action="change_password.php" method="post">
         <fieldset>
             <div class = "myRow">
