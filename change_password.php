@@ -1,7 +1,7 @@
 <?php
 
 $page_title = 'Change Your Password';
-include ('header.html');
+include ('header.php');
 require_once "mysql_connect.php";
 
 $displayForm = TRUE;
@@ -25,8 +25,9 @@ if ($_POST['submit']) {
         $query = "UPDATE car_owners SET password = '$pw' WHERE email = '$email';";
         $result = $pdo->query($query);
         if ($result) {
-            echo "Password successfully changed.";
+            echo "Password successfully changed, redirecting to home page.";
             $displayForm = FALSE;
+            header("refresh: 2; url=index.php");
         } else {
             echo "There was an issue with the database.";
         }
@@ -35,7 +36,7 @@ if ($_POST['submit']) {
 if ($displayForm){
     ?>
     <h1>Change Your Password</h1>
-    <p>Enter your email address below and your password will be changed.</p>
+    <p>Enter your password below and it will be changed.</p>
     <form action="change_password.php" method="post">
         <fieldset>
             <div class = "myRow">
