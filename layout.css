@@ -47,7 +47,8 @@ a:hover {background-color:#eee;}
 	border-color:black;
 	border-width:1px 0px; /* top and bottom borders: 1px; left and right borders: 0px */
 	line-height:11px;
-	background-color:#eee;
+	background-color:red;
+	color: white;
 	voice-family: "\"}\"";
 	voice-family:inherit;
 	height:14px; /* the correct height */
