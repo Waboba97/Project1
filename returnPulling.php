@@ -1,3 +1,7 @@
+<style>
+    <?php include 'layout.css'; ?>
+</style>
+
 <?php // returnPulling.php
 
 //authenticate.php: authenticates users who are stored in the database
