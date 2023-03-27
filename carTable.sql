@@ -2,7 +2,6 @@ CREATE TABLE cars (
     carID int NOT NULL AUTO_INCREMENT,
     make varchar (25),
     model varchar (25),
-    year int,
     price int,
     PRIMARY KEY (carID)
 );
