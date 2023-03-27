@@ -22,5 +22,6 @@ For this project, we had two HTML files and one CSS file. The two HTML files rel
 
 BUGS AND TESTING
 
-* We had a few bugs in the login and register page, where sometimes the user would be able to change the password of an email that wasn't their, we got around that by anchoring their specific session email and password to their account, so they couldn't change any other account but their own. The other bug we ran into was GitHub being buggy and not working in unison with us. We got around this by compartmentalizing our sections and working on our own pieces, so that we would limit the amount of conflicts. 
+* We had a few bugs in the login and register page, where sometimes the user would be able to change the password of an email that wasn't theirs, we got around that by anchoring their specific session email and password to their account, so they couldn't change any other account but their own. The other bug we ran into was GitHub being buggy and not working in unison with us. We got around this by compartmentalizing our sections and working on our own pieces, so that we would limit the amount of conflicts. 
+* The name does allow entries other than letters, but there were larger concerns to correct, so if there was more time we could have added a regex to ensure only valid names are allowed.
 * The only procedures we really needed were just making sure everyone had the correct database files, and that we all had the same code when it was working properly. Making sure we were all on the same page was key in our overall success.
