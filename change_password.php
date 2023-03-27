@@ -51,5 +51,5 @@ if ($displayForm){
 
     <?php
 }
-include ('footer.html');
+include ('footer.php');
 ?>
