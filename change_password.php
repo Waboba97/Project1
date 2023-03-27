@@ -1,3 +1,7 @@
+<style>
+    <?php include 'layout.css'; ?>
+</style>
+
 <?php
 
 $page_title = 'Change Your Password';
