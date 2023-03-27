@@ -10,7 +10,7 @@ $displayForm = True;
 
 if(isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $getEmail = "SELECT email FROM car_owners WHERE email = $email";
+    $getEmail = "SELECT email FROM car_owners WHERE email = '$email'";
 
 
     if ( !( $result = $pdo->query($getEmail) ) ) {
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
         $displayForm = True;
     } else {
         $hash = password_hash("Pass", PASSWORD_DEFAULT);
-        $update = "UPDATE car_owners SET password=$hash WHERE email=$email";
+        $update = "UPDATE car_owners SET password='$hash' WHERE email='$email'";
         $stmt = $pdo->prepare($update);
 
         // execute the query
