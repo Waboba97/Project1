@@ -119,6 +119,10 @@ if (isset($_POST["addCar"])) {
     if (empty($mileage)) {
         $inputError = true;
     }
+    else if ($mileage < 0) {
+        $inputError = true;
+        echo "Mileage must be 0 or greater";
+    }
     if (empty($year)) {
         $inputError = true;
         echo "You must select a year";
