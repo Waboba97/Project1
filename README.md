@@ -17,7 +17,7 @@ validation system, we added the variables mileage and quality to help with the p
 In the cars table, we had a base price for each of the cars, and then we used a formula that we created in order to decease the value of the cars from previous years 
 based on mileage, year, and quality.
 
-* Explaining formula
+* The formulas were relatively straightforward. Each additional option added onto the car was a steady $75. So if the user added 2 additional packages, he would pay $150 on top of whatever price was offered after markups and markdowns. The quality formulas had less return on money as the car deteriorated, with every bump down in quality reducing its price by 5%. Mileage had the same effect, where after 10,000 miles, the cars price would be reduced by 5%, and after 40,000, the price would reduce 10%, finally over 70,000 miles reduced price 15%. The final price of the car would then be distributed onto either dealer owned, certified pre owned, privately owned, and trade in value. Private owner would sell at its evaluated price, dealer would boost 15%, CPO would boost 10%, and trade in would drop to 80% value. Finally we added the price depreciation per year, which is a steady -$750 per year. All of these specifications got us to our final prices we could display to the user.
 
 PHP FILES
 
