@@ -61,6 +61,8 @@ if(isset($_POST['query'])) {
         $sql = "INSERT INTO car_owners (firstName, lastName, email, password) VALUES ('{$fName}', '{$lName}', '{$email}', '{$hash}')";
         if ($pdo->exec($sql)) {
             echo "New record created successfully";
+            echo "Redirecting you to the home page.";
+            header("refresh: 2; url=index.php");
         } else {
             echo "Error: ";
         }
